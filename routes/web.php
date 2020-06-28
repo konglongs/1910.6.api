@@ -14,3 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+
+//接口
+Route::post('/api/reg','Api\UserController@reg');//注册
+Route::post('/api/login','Api\UserController@login');//登录
+Route::get('/api/list','Api\UserController@list');//个人中心
