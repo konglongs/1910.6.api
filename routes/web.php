@@ -21,3 +21,5 @@ Route::get('/', function () {
 Route::post('/api/reg','Api\UserController@reg');//注册
 Route::post('/api/login','Api\UserController@login');//登录
 Route::get('/api/list','Api\UserController@list');//个人中心
+Route::get('/api/test','Api\UserController@test');//
+Route::get('/api/my/order','Api\UserController@orders');//

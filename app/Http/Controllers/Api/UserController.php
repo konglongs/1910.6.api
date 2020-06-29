@@ -82,14 +82,14 @@ class UserController extends Controller
         $pwd=request()->input('pwd');
         if($name==""){
             $data=[
-                'errno'=>'50001',
+                'errno'=>'50011',
                 'msg'=>'账号不能为空'
             ];
             return $data;
         }
         if($pwd==""){
             $data=[
-                'errno'=>'50002',
+                'errno'=>'50012',
                 'msg'=>'密码不能为空'
             ];
             return $data;
@@ -100,7 +100,7 @@ class UserController extends Controller
         $user=Puser::where([$where])->first();
         if($user==""){
             $data=[
-                'errno'=>'50003',
+                'errno'=>'50013',
                 'msg'=>'账号或密码错误'
             ];
             return $data;
@@ -115,7 +115,7 @@ class UserController extends Controller
                 ];
 //                Token::insert($datas);
                 Redis::set($token,$user->user_id);
-                echo "111";
+                Redis::expire($token,60*60);
                 $data=[
                     'errno'=>'00000',
                     'msg'=>'ok',
@@ -129,16 +129,70 @@ class UserController extends Controller
 
     }
     public function list(){
-        $token=$_GET['token'];
+
+        if(isset($_GET['token'])){
+            $token=$_GET['token'];
+        }else{
+            $data=[
+                'error'=>'50021',
+                'msg'=>'请登录'
+            ];
+            return $data;
+        }
+
         $uid=Redis::get($token);
-        $str=Token::where(['token'=>$token])->first();
-        if($str){
-            $uid=$str->uid;
+        if($uid==""){
+            $data=[
+                'error'=>'50022',
+                'msg'=>'请登录'
+            ];
+            return $data;
+        }else{
             $user=Puser::find($uid);
             echo "欢迎".$user->user_name."来到个人中心";
-        }else{
-            echo "请登录";
-
         }
+
+    }
+    public function test(){
+        echo phpinfo();
+    }
+    public function orders(){
+//        鉴权
+
+        if(isset($_GET['token'])){
+            $token=$_GET['token'];
+//            验证token
+            $uid=Redis::get($token);
+            if($uid){
+
+            }else{
+                $data=[
+                    'error'=>'50022',
+                    'msg'=>'请登录'
+                ];
+                return $data;
+            }
+        }else{
+            $data=[
+                'error'=>'50021',
+                'msg'=>'请登录'
+            ];
+            return $data;
+        }
+
+        $aar=[
+            '1231u3o1ui',
+            'w97189yidw',
+            '12863jdsgq'
+        ];
+        $data=[
+            'error'=>'00000',
+            'msg'=>'ok',
+            'datas' =>[
+                "orders"=>$aar
+            ]
+        ];
+
+        return $data;
     }
 }
