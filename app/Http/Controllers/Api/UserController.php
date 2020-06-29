@@ -159,27 +159,6 @@ class UserController extends Controller
     public function orders(){
 //        鉴权
 
-        if(isset($_GET['token'])){
-            $token=$_GET['token'];
-//            验证token
-            $uid=Redis::get($token);
-            if($uid){
-
-            }else{
-                $data=[
-                    'error'=>'50022',
-                    'msg'=>'请登录'
-                ];
-                return $data;
-            }
-        }else{
-            $data=[
-                'error'=>'50021',
-                'msg'=>'请登录'
-            ];
-            return $data;
-        }
-
         $aar=[
             '1231u3o1ui',
             'w97189yidw',
