@@ -30,8 +30,15 @@ Route::get('/api/a','Api\TestController@a');//
 Route::get('/api/b','Api\TestController@b');//
 
 });
-
+//测试
 Route::get('/test/test','TestController@test');
 Route::get('/test/secret','TestController@secret');
+Route::get('/test/www','TestController@www');
+Route::get('/test/send_data','TestController@send_data');
+Route::get('/test/post_data','TestController@post_data');
+Route::get('/test/encrypt1','TestController@encrypt1');
+Route::get('/test/rsa/encrypt1','TestController@resEncrypt1');
+
+
 
 
