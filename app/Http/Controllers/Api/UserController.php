@@ -64,7 +64,7 @@ class UserController extends Controller
         $data=[
             'user_name'=>$name,
             'user_email'=>$email,
-            'user_pwd'=>password_hash($pwd,PASSWORD_BCRYPT ),
+            'user_pwd'=>password_hash($pwd,PASSWORD_BCRYPT),
             'reg_time'=>time()
         ];
         $res=Puser::insert($data);

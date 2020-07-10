@@ -147,5 +147,49 @@ class TestController extends Controller
         var_dump($dec_data);
     }
 
+    public function aaa(){
+        $data="无情哈拉少";
+//        用a的公钥加密
+
+        //a的公钥
+        $key_content=file_get_contents(storage_path('keys/a_pub.key'));
+        //获取公钥k
+        $a_pub_key=openssl_get_publickey($key_content);
+        openssl_public_encrypt($data,$enc_data,$a_pub_key);
+        $data=urlencode(base64_encode($enc_data));
+        $url="http://api.1910.com/api/bbb?data=".$data;
+        $response = file_get_contents($url);
+
+
+
+        $json_arr = json_decode($response,true);
+        $enc_datas=base64_decode($json_arr['data']);
+        $key_content=file_get_contents(storage_path('keys/b_pub.key'));
+        $pric_key=openssl_get_privatekey($key_content);
+        openssl_public_decrypt($enc_datas,$dec_data,$key_content);
+        echo $dec_data;
+
+
+    }
+    public function rsaSign(){
+        $data="孔维龙孔维龙";
+        $key_content=file_get_contents(storage_path('keys/a_priv.key'));
+        //获取公钥k
+
+
+        $key = openssl_get_privatekey( file_get_contents( storage_path('keys/a_priv.key') )  );
+        openssl_sign($data,$sign,$key);
+        $sign_str = urlencode(base64_encode($sign));
+        $url = 'http://api.1910.com//api/rsaSign?data='.$data . '&sign='.$sign_str;
+        $response = file_get_contents($url);
+        echo $response;
+
+
+    }
+
+    public function abc(){
+        echo "111";
+    }
+
 }
 

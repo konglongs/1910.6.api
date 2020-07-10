@@ -62,6 +62,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'check_pri' => \App\Http\Middleware\CheckPri::class,
         'access_brush' => \App\Http\Middleware\AccessBrush::class,
+        'fangshua' => \App\Http\Middleware\Fangshua::class,
     ];
 
     /**
